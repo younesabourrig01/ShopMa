@@ -1,10 +1,10 @@
-# 🏺 Shop.ma - Artisanat Marocain Moderne
+# Shop.ma - Marocain E-commerce Site Web
 
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 
-**Shop.ma** est une application e-commerce moderne dédiée à la promotion et la vente en ligne de produits artisanaux et traditionnels marocains. 
+**Shop.ma** est une application e-commerce moderne dédiée à la promotion et la vente en ligne de produits.
 
 Ce projet a été réalisé dans le cadre du module **M203 - Développement Front-End avec React** à l'**ISTA Mirleft**.
 
@@ -14,12 +14,12 @@ Ce projet a été réalisé dans le cadre du module **M203 - Développement Fron
 
 Le projet repose sur une stack technique performante pour une expérience utilisateur fluide :
 
-* **Framework :** [React](https://reactjs.org/)
-* **Outil de Build :** [Vite](https://vitejs.dev/) (Rapidité de développement)
-* **Navigation :** [React Router](https://reactrouter.com/) (SPA)
-* **State Management :** [Redux Toolkit](https://redux-toolkit.js.org/)
-* **Appels API :** [Axios](https://axios-http.com/)
-* **Styling :** [Tailwind CSS](https://tailwindcss.com/) (Design Utility-First)
+- **Framework :** [React](https://reactjs.org/)
+- **Outil de Build :** [Vite](https://vitejs.dev/) (Rapidité de développement)
+- **Navigation :** [React Router](https://reactrouter.com/) (SPA)
+- **State Management :** [Redux Toolkit](https://redux-toolkit.js.org/)
+- **Appels API :** [Axios](https://axios-http.com/)
+- **Styling :** [Tailwind CSS](https://tailwindcss.com/) (Design Utility-First)
 
 ---
 
@@ -42,3 +42,4 @@ Suivez ces étapes pour cloner et lancer le projet sur votre machine locale :
    ```bash
    git clone [https://github.com/younesabourrig01/fileRouge.git](https://github.com/younesabourrig01/fileRouge.git)
    cd shop-ma-prenom-nom
+   ```
