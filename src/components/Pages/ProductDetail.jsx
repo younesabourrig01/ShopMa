@@ -1,8 +1,12 @@
 import { useParams, useNavigate } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import useFetch from "../../Hooks/useFetch";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/features/Cart/cartSlice";
 
 export const ProductDetail = () => {
+  const dispatch = useDispatch();
+
   const { id } = useParams();
   const navigate = useNavigate();
   const { data, loading, error } = useFetch(
@@ -99,7 +103,10 @@ export const ProductDetail = () => {
                 </p>
               </div>
 
-              <button className="flex-1 md:flex-none bg-emerald-600 hover:bg-emerald-700 text-white px-10 py-4 rounded-2xl font-bold transition-all active:scale-95 shadow-lg shadow-emerald-100">
+              <button
+                onClick={() => dispatch(addToCart(data))}
+                className="flex-1 md:flex-none bg-emerald-600 hover:bg-emerald-700 text-white px-10 py-4 rounded-2xl font-bold transition-all active:scale-95 shadow-lg shadow-emerald-100"
+              >
                 Ajouter au panier
               </button>
             </div>

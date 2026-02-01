@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-// import useTheme from "../../Hooks/useTheme";
+import { useSelector } from "react-redux";
+import { selectCartCount } from "../../redux/features/Selectors/cartSelectors";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const { theme, toggleTheme } = useTheme();
+  const cartCount = useSelector(selectCartCount);
   const getLinkStyle = ({ isActive }) =>
     `relative py-2 text-sm font-semibold transition-all duration-300 hover:text-[#1DBB8B] ${
       isActive ? "text-[#1DBB8B]" : "text-gray-600"
@@ -46,16 +47,23 @@ const Header = () => {
           >
             Produits
           </NavLink>
+
           <NavLink
             to="/panier"
             className={({ isActive }) =>
-              `no-underline ${getLinkStyle({ isActive })} ${
+              `no-underline flex items-center gap-2 ${getLinkStyle({ isActive })} ${
                 isActive ? activeIndicator : ""
               }`
             }
           >
             Panier
+            {cartCount > 0 && (
+              <span className="ml-1 bg-[#1DBB8B] text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                {cartCount}
+              </span>
+            )}
           </NavLink>
+
           <NavLink
             to="/contact"
             className={({ isActive }) =>
@@ -66,11 +74,6 @@ const Header = () => {
           >
             Contact
           </NavLink>
-          {/* <div>
-            <button onClick={toggleTheme}>
-              {theme === "light" ? "🌙 Dark" : "☀️ Light"}
-            </button>
-          </div> */}
         </nav>
 
         <div className="md:hidden">
@@ -161,11 +164,6 @@ const Header = () => {
               Contact
             </NavLink>
           </li>
-          {/* <li>
-            <button onClick={toggleTheme}>
-              {theme === "light" ? "🌙 Dark" : "☀️ Light"}
-            </button>
-          </li> */}
         </ul>
       </div>
     </header>
