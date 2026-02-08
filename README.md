@@ -1,4 +1,4 @@
-# Shop.ma - Marocain E-commerce Site Web
+# Shop.ma
 
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
@@ -10,7 +10,7 @@ Ce projet a été réalisé dans le cadre du module **M203 - Développement Fron
 
 ---
 
-## 🚀 Technologies Utilisées
+## Technologies Utilisées
 
 Le projet repose sur une stack technique performante pour une expérience utilisateur fluide :
 
@@ -23,7 +23,7 @@ Le projet repose sur une stack technique performante pour une expérience utilis
 
 ---
 
-## ✨ Fonctionnalités
+## Fonctionnalités
 
 - [x] **Catalogue Complet :** +20 produits artisanaux (Cuisine, Mode, Décoration, Artisanat).
 - [x] **Recherche & Filtres :** Recherche dynamique par nom et filtrage avancé par catégorie, prix (min/max) et stock.
@@ -34,7 +34,7 @@ Le projet repose sur une stack technique performante pour une expérience utilis
 
 ---
 
-## 🛠️ Installation et Lancement
+## Installation et Lancement
 
 Suivez ces étapes pour cloner et lancer le projet sur votre machine locale :
 
@@ -43,3 +43,22 @@ Suivez ces étapes pour cloner et lancer le projet sur votre machine locale :
    git clone [https://github.com/younesabourrig01/fileRouge.git](https://github.com/younesabourrig01/fileRouge.git)
    cd shop-ma-prenom-nom
    ```
+2. **Project Setup**
+
+**Backend**
+
+```bash
+cd backend
+npm install
+npm run seed
+npm run dev
+
+```
+
+**Frontend**
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
