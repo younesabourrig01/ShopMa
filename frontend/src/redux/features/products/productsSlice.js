@@ -12,14 +12,17 @@ const initialState = {
 
 // fetch products (async thunk )
 export const fetchProducts = createAsyncThunk(
-  "products/fitchProducts",
+  "products/fetchProducts",
   async (_, { rejectWithValue }) => {
     try {
       const response = await fetch("http://localhost:5000/api/products");
+
       if (!response.ok) {
         throw new Error("Erreur lors du chargement des produits");
       }
-      return response.json();
+
+      const res = await response.json();
+      return res.data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -58,7 +61,7 @@ export const productsSlice = createSlice({
         state.status = "succeeded";
         state.items = action.payload;
       })
-      .addCase(fetchProducts .rejected, (state, action) => {
+      .addCase(fetchProducts.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
       });

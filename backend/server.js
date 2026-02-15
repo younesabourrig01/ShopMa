@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-
+const productRoutes = require("./routes/productRoutes");
 const authRoutes = require("./routes/authRoutes");
 const errorHandler = require("./middlewares/errorMiddleware");
 
@@ -14,6 +14,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
 
 // Error
 app.use(errorHandler);

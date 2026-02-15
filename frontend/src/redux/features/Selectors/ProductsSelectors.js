@@ -7,7 +7,9 @@ export const selectProductById = (state, productId) =>
 
 // selector with logic
 export const selectFilteredProducts = (state) => {
-  const { items, filters } = state.products;
+  const items = state.products?.items ?? [];
+  const filters = state.products?.filters ?? { filter: "all", sortBy: "name" };
+
   let result = [...items];
 
   if (filters.filter !== "all") {

@@ -60,7 +60,7 @@ function ProductsList() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {searchedProducts.map((p) => (
           <ProductCard
-            key={p.id}
+            key={p._id}
             id={p._id}
             title={p.title}
             price={p.price}
