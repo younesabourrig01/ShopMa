@@ -3,8 +3,8 @@ const {
   sendSuccess,
   sendError,
   sendNotFound,
-} = require("../tools/responseHelper");
-const { isValidObjectId } = require("../tools/validators");
+} = require("../../auth-service/tools/responseHelper");
+const { isValidObjectId } = require("../../auth-service/tools/validators");
 const fs = require("fs");
 const path = require("path");
 
