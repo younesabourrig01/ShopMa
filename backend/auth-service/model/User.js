@@ -24,12 +24,12 @@ const userSchema = new mongoose.Schema(
       required: true,
       match: ["/^(06|07)\d{8}$/", "invalid phone number"],
     },
-    address: {
+    adress: {
       type: String,
       required: true,
     },
     region: {
-      type: string,
+      type: String,
       required: true,
     },
     image: {
