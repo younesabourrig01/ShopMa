@@ -6,7 +6,7 @@ const PORT = process.env.PORT;
 
 const startServeer = async () => {
   try {
-    await connectDB;
+    connectDB;
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
