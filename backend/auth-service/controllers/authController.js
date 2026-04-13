@@ -1,15 +1,22 @@
 const User = require("../model/User");
 const bcrypt = require("bcryptjs");
 const generateToken = require("../tools/generateToken");
+const {
+  sendSuccess,
+  sendError,
+  sendNotFound,
+} = require("../tools/responseHelpers");
 
-exports.register = async (req, res, next) => {
+exports.register = async (req, res) => {
   try {
     const { name, email, password, phone_number, adress, region } = req.body;
     const image = req.file ? req.file.filename : null;
+
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: "Email already exists" });
+      return sendError(res, "Email already exists", 400);
     }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
       name,
@@ -21,76 +28,68 @@ exports.register = async (req, res, next) => {
       image,
     });
 
-    res.status(201).json({
-      token: generateToken(user),
-      user: {
-        id: user._id,
-        name: user.name,
-        role: user.role,
+    return sendSuccess(
+      res,
+      {
+        token: generateToken(user),
+        user: { id: user._id, name: user.name, role: user.role },
       },
-    });
+      201,
+    );
   } catch (error) {
-    next(error);
+    return sendError(res, error.message);
   }
 };
 
-exports.login = async (req, res, next) => {
+exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
-    if (!user) return res.status(401).json({ message: "Invalid credentials" });
+    if (!user) return sendError(res, "Invalid credentials", 401);
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch)
-      return res.status(401).json({ message: "Invalid credentials" });
+    if (!isMatch) return sendError(res, "Invalid credentials", 401);
 
-    res.json({
+    return sendSuccess(res, {
       token: generateToken(user),
-      user: {
-        id: user._id,
-        name: user.name,
-        role: user.role,
-      },
+      user: { id: user._id, name: user.name, role: user.role },
     });
   } catch (error) {
-    next(error);
+    return sendError(res, error.message);
   }
 };
 
-exports.updatePassword = async (req, res, next) => {
+exports.updatePassword = async (req, res) => {
   try {
     const user = req.user;
     const { currentPassword, newPassword } = req.body;
 
     if (!currentPassword || !newPassword) {
-      return res.status(400).json({ message: "All fields are required" });
+      return sendError(res, "All fields are required", 400);
     }
 
     const isMatch = await bcrypt.compare(currentPassword, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Current password incorrect" });
+      return sendError(res, "Current password incorrect", 400);
     }
 
     user.password = await bcrypt.hash(newPassword, 10);
-
     await user.save();
 
-    res.status(200).json({ message: "Password updated successfully" });
+    return sendSuccess(res, { message: "Password updated successfully" });
   } catch (error) {
-    next(error);
+    return sendError(res, error.message);
   }
 };
 
-exports.updateUserInfo = async (req, res, next) => {
+exports.updateUserInfo = async (req, res) => {
   try {
     const user = req.user;
+    if (!user) return sendNotFound(res, "User");
+
     const { name, email, phone_number, adress, region } = req.body;
     const image = req.file ? req.file.filename : undefined;
-
-    if (!user) {
-      return res.status(400).json({ message: "No user found" });
-    }
 
     user.name = name ?? user.name;
     user.email = email ?? user.email;
@@ -100,59 +99,53 @@ exports.updateUserInfo = async (req, res, next) => {
     user.image = image ?? user.image;
 
     await user.save();
-
     user.password = undefined;
 
-    res.status(200).json({
+    return sendSuccess(res, {
       message: "Profile updated successfully",
       user,
     });
   } catch (error) {
-    next(error);
+    return sendError(res, error.message);
   }
 };
 
-exports.deleteUser = async (req, res, next) => {
+exports.deleteUser = async (req, res) => {
   try {
     const user = req.user;
     const { password } = req.body;
 
-    if (!password) {
-      return res.status(400).json({ message: "Password is required" });
-    }
+    if (!password) return sendError(res, "Password is required", 400);
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(401).json({ message: "Invalid password" });
-    }
+    if (!isMatch) return sendError(res, "Invalid password", 401);
 
     await user.deleteOne();
 
-    res.status(200).json({ message: "User deleted successfully" });
+    return sendSuccess(res, { message: "User deleted successfully" });
   } catch (error) {
-    next(error);
+    return sendError(res, error.message);
   }
 };
 
-exports.userProfile = async (req, res, next) => {
+exports.userProfile = async (req, res) => {
   try {
     const user = req.user;
     if (!user)
-      return res
-        .status(400)
-        .json({ message: "unexpected error wen fetching user info" });
-    res.status(200).json({
-      message: "user data fetched succsessfuly",
+      return sendError(res, "Unexpected error when fetching user info", 400);
+
+    return sendSuccess(res, {
+      message: "User data fetched successfully",
       user: {
         name: user.name,
         email: user.email,
         image: user.image,
         region: user.region,
-        adress: user.address,
+        adress: user.adress,
         phone_number: user.phone_number,
       },
     });
   } catch (error) {
-    next(error);
+    return sendError(res, error.message);
   }
 };
