@@ -1,13 +1,11 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
-const { AUTH_SERVICE } = require("../config/services");
-const auth = require("../middlewares/auth.middleware");
+const { PRODUCT_SERVICE } = require("../../config/services");
 
 module.exports = (app) => {
   app.use(
-    "/api/user",
-    auth,
+    "/api/products",
     createProxyMiddleware({
-      target: AUTH_SERVICE,
+      target: PRODUCT_SERVICE,
       changeOrigin: true,
     }),
   );
