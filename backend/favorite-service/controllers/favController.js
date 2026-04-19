@@ -8,7 +8,7 @@ const {
 //add a product to fav list
 exports.addToFav = async (req, res) => {
   try {
-    const user_id = req.headers["x-user-id"];
+    const user_id = req.headers["user"];
     const { product_id } = req.body;
 
     if (!product_id) {
@@ -16,8 +16,8 @@ exports.addToFav = async (req, res) => {
     }
 
     const existingFav = await Favorite.findOne({
-      user: user_id,
-      product: product_id,
+      userId: user_id,
+      productId: product_id,
     });
 
     if (existingFav) {
@@ -25,8 +25,8 @@ exports.addToFav = async (req, res) => {
     }
 
     const fav = await Favorite.create({
-      user: user_id,
-      product: product_id,
+      userId: user_id,
+      productId: product_id,
     });
 
     return sendSuccess(res, fav, 201);
@@ -38,7 +38,7 @@ exports.addToFav = async (req, res) => {
 //remove a product from fav list
 exports.removeFav = async (req, res) => {
   try {
-    const user_id = req.headers["x-user-id"];
+    const user_id = req.headers["user"];
     const { product_id } = req.body;
 
     if (!user_id) {
@@ -50,8 +50,8 @@ exports.removeFav = async (req, res) => {
     }
 
     const deletedFav = await Favorite.findOneAndDelete({
-      user: user_id,
-      product: product_id,
+      userId: user_id,
+      productId: product_id,
     });
 
     if (!deletedFav) {
@@ -68,13 +68,13 @@ exports.removeFav = async (req, res) => {
 //fet fav list
 exports.getFav = async (req, res) => {
   try {
-    const user_id = req.headers["x-user-id"];
+    const user_id = req.headers["user"];
 
     if (!user_id) {
       return sendError(res, "User ID is required", 400);
     }
 
-    const favList = await Favorite.find({ user: user_id });
+    const favList = await Favorite.find({ userId: user_id });
     if (!favList || favList.length === 0) {
       return sendSuccess(res, [], 200);
     }
