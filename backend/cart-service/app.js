@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const morgan = "morgan";
+const morgan = require("morgan");
 
 const cartRoutes = require("./routes/cartRoutes");
 
