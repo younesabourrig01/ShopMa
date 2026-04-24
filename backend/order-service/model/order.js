@@ -10,10 +10,14 @@ const orderSchema = new mongoose.Schema(
         price: Number,
       },
     ],
-    status: "PENDING" | "CONFIRMED" | "CANCELLED",
+    status: {
+      type: String,
+      enum: ["PENDING", "CONFIRMED", "CANCELLED"],
+      default: "PENDING",
+    },
     totalPrice: Number,
   },
-  { timeseries: true },
+  { timestamps: true },
 );
-
+// "PENDING" | "CONFIRMED" | "CANCELLED"
 module.exports = mongoose.model("Order", orderSchema);
