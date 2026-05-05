@@ -12,13 +12,18 @@ app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 
 //rate limiter
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-  message: {
-    success: false,
-    message: "Too many requests, try again later",
-  },
+// const limiter = rateLimit({
+//   windowMs: 15 * 60 * 1000,
+//   max: 100,
+//   message: {
+//     success: false,
+//     message: "Too many requests, try again later",
+//   },
+// });
+
+app.use((req, res, next) => {
+  console.log("GATEWAY HIT:", req.method, req.url);
+  next();
 });
 
 // routes

@@ -5,7 +5,7 @@ const {
   sendSuccess,
   sendError,
   sendNotFound,
-} = require("../tools/responseHelpers");
+} = require("../tools/responseHelper");
 
 exports.register = async (req, res) => {
   try {
