@@ -1,11 +1,15 @@
 const Cart = require("../model/cart");
 
-exports.catchResults = async (req, res) => {
-  const { ids } = req.body;
+exports.sendResults = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
 
-  const Cart = await Product.find({
-    _id: { $in: ids },
-  });
-
-  return res.status(200).json(products);
+    const items = await Cart.find({ userId: userId });
+    return res.status(200).json(items);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };

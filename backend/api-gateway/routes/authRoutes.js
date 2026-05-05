@@ -9,7 +9,7 @@ module.exports = (app) => {
       changeOrigin: true,
       logLevel: "debug",
       pathRewrite: {
-        "^/api/auth": "", // 🔥 required
+        "^/": "/api/auth/",
       },
       onProxyReq: (proxyReq, req, res) => {
         proxyReq.setHeader("x-internal-secret", process.env.INTERNAL_SECRET);

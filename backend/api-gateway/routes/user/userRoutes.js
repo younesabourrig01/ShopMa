@@ -9,6 +9,9 @@ module.exports = (app) => {
     createProxyMiddleware({
       target: AUTH_SERVICE,
       changeOrigin: true,
+      pathRewrite: {
+        "^/": "/api/user/",
+      },
       onProxyReq: (proxyReq, req, res) => {
         proxyReq.setHeader("x-internal-secret", process.env.INTERNAL_SECRET);
         proxyReq.setHeader("x-user-id", req.user.id);

@@ -35,6 +35,7 @@ require("./routes/user/CartRoutes")(app);
 require("./routes/user/favoritePublic")(app);
 require("./routes/user/orderRoutes")(app);
 require("./routes/admin/orderAdmin")(app);
+require("./routes/tools/passwordRoutes")(app);
 
 app.listen(process.env.PORT, () => {
   console.log(`Gateway running on port ${process.env.PORT}`);

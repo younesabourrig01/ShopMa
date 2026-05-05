@@ -1,20 +1,17 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
-const { FAVORITE_SERVICE } = require("../../config/services");
-const auth = require("../../middlewares/auth.middleware");
+const { PASSWORD_SERVICE } = require("../../config/services");
 
 module.exports = (app) => {
   app.use(
-    "/api/user/favorite",
-    auth,
+    "/api/tools/password",
     createProxyMiddleware({
-      target: FAVORITE_SERVICE,
+      target: PASSWORD_SERVICE,
       changeOrigin: true,
       pathRewrite: {
-        "^/": "/api/user/favorite/",
+        "^/": "/api/tools/password/",
       },
       onProxyReq: (proxyReq, req, res) => {
         proxyReq.setHeader("x-internal-secret", process.env.INTERNAL_SECRET);
-        proxyReq.setHeader("x-user-id", req.user.id);
       },
     }),
   );

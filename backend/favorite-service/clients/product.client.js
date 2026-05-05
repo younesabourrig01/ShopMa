@@ -6,13 +6,15 @@ const PRODUCT_SERVICE = process.env.PRODUCT_SERVICE;
 exports.getProductById = async (productId) => {
   try {
     const response = await axios.get(
-      `${PRODUCT_SERVICE}/products/${productId}`,
+      `${PRODUCT_SERVICE}/api/products/${productId}`,
       {
         timeout: 3000,
+        headers: {
+          "x-internal-secret": process.env.INTERNAL_SECRET,
+        },
       },
     );
 
-    console.log(response.data);
     return response.data;
   } catch (error) {
     if (error.response) {
@@ -25,10 +27,13 @@ exports.getProductById = async (productId) => {
 exports.getProductsByIds = async (ids) => {
   try {
     const response = await axios.post(
-      `${PRODUCT_SERVICE}/products/bulk`,
+      `${PRODUCT_SERVICE}/api/products/bulk`,
       { ids },
       {
         timeout: 3000,
+        headers: {
+          "x-internal-secret": process.env.INTERNAL_SECRET,
+        },
       },
     );
 

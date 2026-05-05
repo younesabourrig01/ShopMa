@@ -11,6 +11,9 @@ module.exports = (app) => {
     createProxyMiddleware({
       target: ORDER_SERVICE,
       changeOrigin: true,
+      pathRewrite: {
+        "^/": "/api/user/orders/admin/",
+      },
       onProxyReq: (proxyReq, req, res) => {
         proxyReq.setHeader("x-internal-secret", process.env.INTERNAL_SECRET);
         proxyReq.setHeader("x-user-role", req.user.role);
