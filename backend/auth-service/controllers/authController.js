@@ -43,7 +43,6 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    console.log("LOGIN REQUEST RECEIVED:", req.body);
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
@@ -100,7 +99,6 @@ exports.updateUserInfo = async (req, res) => {
     user.image = image ?? user.image;
 
     await user.save();
-    user.password = undefined;
 
     return sendSuccess(res, {
       message: "Profile updated successfully",

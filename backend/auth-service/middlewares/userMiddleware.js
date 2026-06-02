@@ -5,7 +5,7 @@ module.exports = async (req, res, next) => {
     const userId = req.headers["x-user-id"];
 
     if (!userId) {
-      return next(); // Continue, but req.user will be undefined
+      return next(); 
     }
 
     const user = await User.findById(userId);
